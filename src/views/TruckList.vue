@@ -1,7 +1,7 @@
 <template>
   <h1>Battle Wagon</h1>
   <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <EventCard v-for="truck in trucks" :key="truck.id" :truck="truck" />
   </div>
 </template>
 
@@ -10,19 +10,19 @@ import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
 
 export default {
-  name: 'EventList',
+  name: 'TruckList',
   components: {
     EventCard
   },
   data() {
     return {
-      events: null
+      trucks: null
     }
   },
   created() {
-    EventService.getEvents()
+    EventService.getTrucks()
       .then(response => {
-        this.events = response.data
+        this.trucks = response.data
       })
       .catch(error => {
         console.log(error)
