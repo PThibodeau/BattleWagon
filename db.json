@@ -2,18 +2,18 @@
   "events": [
     {
       "id": 123,
-      "category": "animal welfare",
-      "title": "Cat Adoption Day",
+      // "category": "animal welfare",
+      "title": "Wagon One",
       "description": "Find your new feline friend at this event.",
-      "location": "Meow Town",
+      "location": "Here",
       "date": "January 28, 2022",
       "time": "12:00",
       "organizer": "Kat Laydee"
     },
     {
       "id": 456,
-      "category": "food",
-      "title": "Community Gardening",
+      // "category": "food",
+      "title": "Wagon Two",
       "description": "Join us as we tend to the community edible plants.",
       "location": "Flora City",
       "date": "March 14, 2022",
@@ -22,8 +22,8 @@
     },
     {
       "id": 789,
-      "category": "sustainability",
-      "title": "Beach Cleanup",
+      // "category": "sustainability",
+      "title": "Wagon Three",
       "description": "Help pick up trash along the shore.",
       "location": "Playa Del Carmen",
       "date": "July 22, 2022",
