@@ -4,31 +4,31 @@
       "id": 123,
       "category": "animal welfare",
       "title": "Wagon Blue",
-      "description": "Find your new feline friend at this event.",
+      "description": "Blue",
       "location": "Here",
       "date": "January 28, 2022",
       "time": "12:00",
-      "organizer": "Kat Laydee"
+      "organizer": "Blue Guy"
     },
     {
       "id": 456,
       "category": "food",
       "title": "Wagon Red",
-      "description": "Join us as we tend to the community edible plants.",
-      "location": "Flora City",
+      "description": "Red",
+      "location": "There",
       "date": "March 14, 2022",
       "time": "10:00",
-      "organizer": "Fern Pollin"
+      "organizer": "Red Guy"
     },
     {
       "id": 789,
       "category": "sustainability",
       "title": "Wagon Three",
-      "description": "Help pick up trash along the shore.",
-      "location": "Playa Del Carmen",
+      "description": "Three",
+      "location": "Everywhere",
       "date": "July 22, 2022",
       "time": "11:00",
-      "organizer": "Carey Wales"
+      "organizer": "Three Guy"
     }
   ]
 }
