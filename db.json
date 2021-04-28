@@ -2,7 +2,7 @@
   "events": [
     {
       "id": 123,
-      // "category": "animal welfare",
+      "category": "animal welfare",
       "title": "Wagon One",
       "description": "Find your new feline friend at this event.",
       "location": "Here",
@@ -12,7 +12,7 @@
     },
     {
       "id": 456,
-      // "category": "food",
+      "category": "food",
       "title": "Wagon Two",
       "description": "Join us as we tend to the community edible plants.",
       "location": "Flora City",
@@ -22,7 +22,7 @@
     },
     {
       "id": 789,
-      // "category": "sustainability",
+      "category": "sustainability",
       "title": "Wagon Three",
       "description": "Help pick up trash along the shore.",
       "location": "Playa Del Carmen",
