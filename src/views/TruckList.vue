@@ -3,16 +3,21 @@
   <div class="events">
     <EventCard v-for="truck in trucks" :key="truck.id" :truck="truck" />
   </div>
+  <div class="chat">
+    <Chat />
+  </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
+import Chat from '@/components/Chat.vue'
 import EventService from '@/services/EventService.js'
 
 export default {
   name: 'TruckList',
   components: {
-    EventCard
+    EventCard,
+    Chat
   },
   data() {
     return {
