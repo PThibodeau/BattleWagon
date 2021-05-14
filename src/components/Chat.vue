@@ -1,75 +1,74 @@
 <template>
-  <div class="chatcontainer">
-    <div id="output">
-      <!-- <span class="outputText"><b>{{ message.username }}</b> {{ message.text }}</span> -->
-      <span class="outputText"><b>User2:</b> qwer</span>
+  <div class="container-sm chatContainer">
+    <div class="mx-5">
+      <Message
+        v-for="{ id, text, userPhotoURL, userName, userId } in messages"
+        :key="id"
+        :name="userName"
+        :photo-url="userPhotoURL"
+        :sender="userId === user?.uid"
+      >
+        {{ text }}
+      </Message>
     </div>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+  </div>
+
+  <div ref="bottom" class="mt-20" />
+
+  <div class="bottom">
+    <div class="container-sm">
+      <form v-if="isLogin" @submit.prevent="send">
+        <input v-model="message" placeholder="Message" required />
+        <button type="submit">
+          <SendIcon />
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-// import EventService from '@/services/EventService.js'
+import { ref, watch, nextTick } from 'vue'
+import { useAuth, useChat } from '@/firebase'
+
+import SendIcon from './SendIcon.vue'
+import Message from './Message.vue'
+
 export default {
-  // props: ['id'],
-  // data() {
-  //   return {
-  //     message: null
-  //   }
-  // },
-  // created() {
-  //   EventService.getMessage()
-  //     .then(response => {
-  //       this.message = response.data
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     })
-  // }
-  props: {
-    message: {
-      type: Object,
-      required: true
+  components: { Message, SendIcon },
+  setup() {
+    const { user, isLogin } = useAuth()
+    const { messages, sendMessage } = useChat()
+
+    const bottom = ref(null)
+    watch(
+      messages,
+      () => {
+        nextTick(() => {
+          bottom.value?.scrollIntoView({ behavior: 'smooth' })
+        })
+      },
+      { deep: true }
+    )
+
+    const message = ref('')
+    const send = () => {
+      sendMessage(message.value)
+      message.value = ''
     }
+
+    return { user, isLogin, messages, bottom, message, send }
   }
 }
 </script>
 
 <style scoped>
-  #output {
-    height: 85%;
-    width: 100%;
-    border: 1px solid black;
-    text-align: left;
-  }
-
-  .outputText { 
-    padding: 5px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    display: block;
-  }
-  
-  /* Form */
-  #form {
-    padding-top: 10px;
-    height: 15%;
-  }
-  #form #input {
-    width: 89%;
-    float: left;
-  }
-  #form button {
-    width: 10%;
-    float: left;
-  }
-  /* Form end */
-
-  .chatcontainer {
+  /* .chatContainer{
     height: 200px;
-    display: block;
-    /* border: 1px solid black; */
+    overflow: scroll;
+  } */
+
+  .bottom {
+    z-index: 99999;
   }
 </style>

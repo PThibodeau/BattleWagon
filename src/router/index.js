@@ -1,31 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TruckList from '../views/TruckList.vue'
-import EventDetails from '../views/EventDetails.vue'
-// import About from '../views/About.vue'
+import Home from '@/views/Home.vue'
+import Edit from '@/views/Edit.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'TruckList',
-    component: TruckList
-  },
-  {
-    path: '/truck/:id',
-    name: 'EventDetails',
-    props: true,
-    component: EventDetails
-  }
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: About
-  // }
+    {
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/edit/:id',
+        name: 'Edit',
+        component: Edit
+    }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+    history: createWebHistory(),
+    routes
 })
 
 export default router
