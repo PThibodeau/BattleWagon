@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isLogin && user.uid === 'MKUTctUetbPYJG2mp0dM093nI1u2'" id="map-container">
+    <div id="map-container">
         <div id="mapsList" v-for="{ id, grid } in maps" :key="id">
             <div v-for="(layer, layerIndex) in getGridLayer(grid)" :key="layerIndex">
                 <div class="gridRow" :style="{'margin-top': getTileTopOffset(row), 'margin-left': getTileLeftOffset(row) }" v-for="(gridRow, row) in getGridRows(layer)" :key="gridRow">
@@ -9,12 +9,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div v-else-if="isLogin" id="beta-map-container">
-        <div>Battle Wagon Beta is closed to unauthorized users. Please contact the development team to gain access to this closed beta.</div>
-    </div>
-    <div v-else id="beta-map-container">
-        <div>Battle Wagon Beta</div>
     </div>
 </template>
 
@@ -27,10 +21,8 @@ export default {
         const maps = useLoadMaps()
         let obj = {};
         let globalRows = [];
+
         return { maps, obj, globalRows, deleteMap, isLogin, user }
-    },
-    beforeMount() {
-        //remove me
     },
     methods: {
         getGridLayer(grid){
@@ -39,7 +31,6 @@ export default {
             return layers;
         },
         getGridRows(layer) {
-            console.log(layer);
             let data = layer.data;
             let size = layer.width;
             let rows = [];
@@ -98,6 +89,9 @@ export default {
 </script>
 
 <style scoped>
+    :root{
+        user-select: none;
+    }
     #map-container {
         margin-top: 75px;
         background-color: lightslategray;
@@ -106,16 +100,7 @@ export default {
         width: 1190px;
         margin-right: auto;
         margin-left: auto;
-    }
-
-    #beta-map-container {
-        margin-top: 75px;
-        background-color: lightslategray;
-        border: 5px solid rgba(17, 24, 39, var(--tw-bg-opacity));
-        padding: 10px;
-        width: 1190px;
-        margin-right: auto;
-        margin-left: auto;
+        user-select: none;
     }
 
     #mapsList {
