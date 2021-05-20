@@ -1,19 +1,14 @@
 <template>
   <div class="message">
-    <span v-if="!sender">{{ name }}</span>
-    <div class="flex" :class="sender ? 'flex-row-reverse' : ''">
-      <Avatar class="mt-1" :src="photoUrl" />
-      <div class="text w-3/4" :class="sender ? 'bg-green-800' : 'bg-gray-700'">
-        <slot />
-      </div>
+    <span :class="sender ? 'sender' : 'receiver'">{{ name }}: </span>
+    <div class="text" :class="sender ? 'sender' : 'receiver'">
+      <slot />
     </div>
   </div>
 </template>
 
 <script>
-import Avatar from './Avatar.vue'
 export default {
-  components: { Avatar },
   props: {
     name: { type: String, default: '' },
     photoUrl: { type: String, default: '' },
@@ -21,3 +16,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .message {
+    display: flex;
+    margin-left: 5px;
+  }
+  .message .text {
+    padding-left: 5px;
+  }
+  .message .sender{
+    color: rgb(196, 195, 195);
+  }
+  .message .receiver{
+    color: black;
+  }
+</style>

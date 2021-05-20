@@ -1,6 +1,5 @@
 <template>
-  <div class="container-sm chatContainer">
-    <div class="mx-5">
+  <div id="chatContainer" class="centered">
       <Message
         v-for="{ id, text, userPhotoURL, userName, userId } in messages"
         :key="id"
@@ -10,20 +9,12 @@
       >
         {{ text }}
       </Message>
-    </div>
   </div>
-
-  <div ref="bottom" class="mt-20" />
-
-  <div class="bottom">
-    <div class="container-sm">
-      <form v-if="isLogin" @submit.prevent="send">
-        <input v-model="message" placeholder="Message" required />
-        <button type="submit">
-          <SendIcon />
-        </button>
-      </form>
-    </div>
+  <div id="sendContainer" class="centered">
+    <form v-if="isLogin" @submit.prevent="send">
+      <input v-model="message" placeholder="Message" required />
+      <button class="submit-button" type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
@@ -31,11 +22,10 @@
 import { ref, watch, nextTick } from 'vue'
 import { useAuth, useChat } from '@/firebase'
 
-import SendIcon from './SendIcon.vue'
 import Message from './Message.vue'
 
 export default {
-  components: { Message, SendIcon },
+  components: { Message },
   setup() {
     const { user, isLogin } = useAuth()
     const { messages, sendMessage } = useChat()
@@ -63,12 +53,41 @@ export default {
 </script>
 
 <style scoped>
-  /* .chatContainer{
-    height: 200px;
-    overflow: scroll;
-  } */
+  #chatContainer {
+    background-color: lightslategray;
+    border: 5px solid rgba(17, 24, 39, var(--tw-bg-opacity));
+    border-top: none;
+    border-bottom: none;
+    height: 14ch;
+    overflow-y: scroll;
+  }
 
-  .bottom {
-    z-index: 99999;
+  #sendContainer{
+    display: flex;
+    border: 5px solid rgba(17, 24, 39, var(--tw-bg-opacity));
+  }
+
+  #sendContainer form{
+    width: 100%;
+  }
+
+  #sendContainer input{
+    width: 90%;
+    padding-left: 5px;
+  }
+
+  #sendContainer button{
+    width: 10%;
+    border-left: 5px solid rgba(17, 24, 39, var(--tw-bg-opacity));
+  }
+
+  .centered {
+    width: 1190px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .submit-button{
+    background-color: lightslategrey;
   }
 </style>

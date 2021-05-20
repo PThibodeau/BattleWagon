@@ -56,23 +56,6 @@ nav button {
   @apply max-w-xl;
 }
 
-.message {
-  @apply my-2;
-  @apply w-full;
-}
-
-.message span {
-  @apply ml-11;
-  @apply text-xs;
-  @apply text-gray-500;
-}
-
-.message .text {
-  @apply mx-2;
-  @apply p-2;
-  @apply rounded-lg;
-  @apply text-white;
-}
 
 .bottom {
   @apply fixed;

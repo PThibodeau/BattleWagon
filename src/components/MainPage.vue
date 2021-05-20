@@ -1,6 +1,7 @@
 <template>
     <div v-if="isLogin && activeUsers.indexOf(user.uid) >= 0">
         <MapList/>
+        <Chat/>
     </div>
     <div v-else-if="isLogin" class="splah-screen-message">
         <div>Battle Wagon is in closed beta testing. Please contact the development team to gain access to this closed beta.</div>
@@ -13,11 +14,12 @@
 <script>
 
 import MapList from '@/components/MapList.vue'
+import Chat from '@/components/Chat.vue'
 import { useAuth, getActivatedUsers } from '@/firebase'
 
 export default {
     name: 'MainPage',
-    components: { MapList },
+    components: { MapList, Chat },
     setup() {
         const { user, isLogin } = useAuth()
         const activeUsers = getActivatedUsers()
