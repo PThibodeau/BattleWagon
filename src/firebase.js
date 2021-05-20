@@ -89,3 +89,7 @@ export const useLoadMaps = () => {
   onUnmounted(close);
   return maps
 }
+
+export const getActivatedUsers = () => {
+  return ['MKUTctUetbPYJG2mp0dM093nI1u2']
+}
