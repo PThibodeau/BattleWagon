@@ -1,16 +1,16 @@
 <template>
   <Nav />
-  <MapList/>
+  <MainPage/>
   <!-- <Chat /> -->
 </template>
 
 <script>
 import Nav from '@/components/Nav.vue'
-import MapList from '@/components/MapList.vue'
+import MainPage from '@/components/MainPage.vue'
 // import Chat from '@/components/Chat.vue'
 
 export default {
   name: 'App',
-  components: { Nav, MapList }
+  components: { Nav, MainPage }
 }
 </script>
