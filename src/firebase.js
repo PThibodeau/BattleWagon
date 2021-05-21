@@ -58,7 +58,31 @@ export function useChat() {
     })
   }
 
-  return { messages, sendMessage }
+  const userLogon = () => {
+    if (!isLogin.value) return
+    const { displayName } = user.value
+    messagesCollection.add({
+      userName: "server",
+      userId: "-1",
+      userPhotoURL: null,
+      text: "<" + displayName + "> signed In",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+
+  const userLogoff = () => {
+    if (!isLogin.value) return
+    const { displayName } = user.value
+    messagesCollection.add({
+      userName: "server",
+      userId: "-1",
+      userPhotoURL: null,
+      text: "<" + displayName + "> signed Out",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+
+  return { messages, sendMessage, userLogon, userLogoff }
 }
 
 //Maps

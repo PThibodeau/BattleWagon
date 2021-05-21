@@ -1,7 +1,7 @@
 <template>
   <div id="chatContainer" class="centered">
       <Message
-        v-for="{ id, text, userPhotoURL, userName, userId } in messages"
+        v-for="{ id, text, userPhotoURL, userName, userId } in messages.slice().reverse()"
         :key="id"
         :name="userName"
         :photo-url="userPhotoURL"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, watch, nextTick } from 'vue'
+import { ref } from 'vue'
 import { useAuth, useChat } from '@/firebase'
 
 import Message from './Message.vue'
@@ -28,26 +28,33 @@ export default {
   components: { Message },
   setup() {
     const { user, isLogin } = useAuth()
-    const { messages, sendMessage } = useChat()
-
-    const bottom = ref(null)
-    watch(
-      messages,
-      () => {
-        nextTick(() => {
-          bottom.value?.scrollIntoView({ behavior: 'smooth' })
-        })
-      },
-      { deep: true }
-    )
+    const { messages, sendMessage, userLogon, userLogoff} = useChat()
+    let counter = 0;
 
     const message = ref('')
     const send = () => {
       sendMessage(message.value)
       message.value = ''
     }
+    const sendLogonMessage = () => {
+      userLogon()
+    }
+    const sendLogoffMessage = () => {
+      userLogoff()
+    }
 
-    return { user, isLogin, messages, bottom, message, send }
+    return { user, isLogin, messages, message, send, counter, sendLogonMessage, sendLogoffMessage }
+  },
+  updated(){
+    if (this.counter === 0){
+      this.counter = 1;
+      //this.sendLogonMessage()
+      // console.log("logon")
+    }
+  },
+  beforeUnmount(){
+    //this.sendLogoffMessage()
+    // console.log("logoff")
   }
 }
 </script>
@@ -60,6 +67,8 @@ export default {
     border-bottom: none;
     height: 14ch;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   #sendContainer{
