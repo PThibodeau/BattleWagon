@@ -41,7 +41,6 @@ export default {
             return rows;
         },
         getImageSource(gridColumnEntry){
-            //let imageSource;
             switch(gridColumnEntry) {
             case 1: //blue
                 return require('@/images/blue.png');
@@ -65,15 +64,12 @@ export default {
         },
         getTileTopOffset(row){
             let pixels = 94;
-            //let pixels = 19;
-            //let offset = row * pixels;
             let marginTop = '-' + pixels +'px';
             return row !== 0 ? marginTop : '';
         },
         getTileLeftOffset(row){
             let isRowOdd = row % 2;
             let marginLeft = '128px';
-            //let marginLeft = '38px';
             return isRowOdd ? marginLeft : '';
         },
         handleTileClick(id, layerIndex, row, index){
@@ -120,6 +116,5 @@ export default {
     .gridTile {
         position: relative;
         cursor: pointer;
-        /* height: 3em; */
     }
 </style>

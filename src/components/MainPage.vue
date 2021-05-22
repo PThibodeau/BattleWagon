@@ -1,10 +1,13 @@
 <template>
-    <div v-if="isLogin && activeUsers.indexOf(user.uid) >= 0">
+    <div v-if="handleLogon()">
         <MapList/>
         <Chat/>
     </div>
     <div v-else-if="isLogin" class="splah-screen-message">
-        <div>Battle Wagon is in closed beta testing. Please contact the development team to gain access to this closed beta.</div>
+        <div>
+            <p><b>We're thrilled you're interested in Battle Wagon!</b></p>
+            <span>Battle Wagon is currently in closed beta testing. Please contact the development team to gain access to this closed beta.</span>
+        </div>
     </div>
     <div v-else class="splah-screen-message">
         <div>Welcome to <b>Battle Wagon</b> <i>beta*</i></div>
@@ -25,7 +28,15 @@ export default {
         const activeUsers = getActivatedUsers()
 
         return { isLogin, user, activeUsers }
-    }
+    },
+    methods: {
+        handleLogon(){
+            return this.isLogin && this.activeUsers.indexOf(this.user.uid) >= 0;
+        }
+    },
+    props: { 
+        'modelValue': String, 
+    } 
 }
 </script>
 

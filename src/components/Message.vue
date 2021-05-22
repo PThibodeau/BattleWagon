@@ -1,6 +1,6 @@
 <template>
   <div class="message">
-    <span :class="sender ? 'sender' : 'receiver'">{{ name }}: </span>
+    <span v-if="!serverId" :class="sender ? 'sender' : 'receiver'">{{ name }}: </span>
     <div class="text" :class="sender ? 'sender' : 'receiver'">
       <slot />
     </div>
@@ -12,7 +12,8 @@ export default {
   props: {
     name: { type: String, default: '' },
     photoUrl: { type: String, default: '' },
-    sender: { type: Boolean, default: false }
+    sender: { type: Boolean, default: false },
+    serverId: { type: Boolean, default: false}
   }
 }
 </script>
@@ -22,8 +23,8 @@ export default {
     display: flex;
     margin-left: 5px;
   }
-  .message .text {
-    padding-left: 5px;
+  .message span {
+    padding-right: 5px;
   }
   .message .sender{
     color: rgb(196, 195, 195);

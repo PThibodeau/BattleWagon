@@ -16,25 +16,55 @@ firebase.initializeApp({
 
 const auth = firebase.auth()
 
+const firestore = firebase.firestore()
+const messagesCollection = firestore.collection('messages')
+const messagesQuery = messagesCollection.orderBy('createdAt', 'desc').limit(100)
+const filter = new Filter()
+
 export function useAuth() {
   const user = ref(null)
   const unsubscribe = auth.onAuthStateChanged(_user => (user.value = _user))
   onUnmounted(unsubscribe)
   const isLogin = computed(() => user.value !== null)
 
+  const userLogon = () => {
+    if (!isLogin.value) return
+    const { displayName } = user.value
+    messagesCollection.add({
+      userName: "[server]",
+      userId: "-1",
+      userPhotoURL: null,
+      text: "<" + displayName + "> signed In",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+
+  const userLogoff = () => {
+    if (!isLogin.value) return
+    const { displayName } = user.value
+    messagesCollection.add({
+      userName: "[server]",
+      userId: "-1",
+      userPhotoURL: null,
+      text: "<" + displayName + "> left",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+
   const signIn = async () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider()
-    await auth.signInWithPopup(googleProvider)
+    await auth.signInWithPopup(googleProvider).then(()=>{
+      console.log("auth login");
+      userLogon();
+    })
   }
-  const signOut = () => auth.signOut()
+  const signOut = () => new Promise((resolve) => {
+    userLogoff();
+    resolve();
+  }).then(auth.signOut())
 
   return { user, isLogin, signIn, signOut }
 }
-
-const firestore = firebase.firestore()
-const messagesCollection = firestore.collection('messages')
-const messagesQuery = messagesCollection.orderBy('createdAt', 'desc').limit(100)
-const filter = new Filter()
 
 export function useChat() {
   const messages = ref([])
@@ -58,31 +88,7 @@ export function useChat() {
     })
   }
 
-  const userLogon = () => {
-    if (!isLogin.value) return
-    const { displayName } = user.value
-    messagesCollection.add({
-      userName: "server",
-      userId: "-1",
-      userPhotoURL: null,
-      text: "<" + displayName + "> signed In",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    })
-  }
-
-  const userLogoff = () => {
-    if (!isLogin.value) return
-    const { displayName } = user.value
-    messagesCollection.add({
-      userName: "server",
-      userId: "-1",
-      userPhotoURL: null,
-      text: "<" + displayName + "> signed Out",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    })
-  }
-
-  return { messages, sendMessage, userLogon, userLogoff }
+  return { messages, sendMessage }
 }
 
 //Maps
@@ -115,5 +121,5 @@ export const useLoadMaps = () => {
 }
 
 export const getActivatedUsers = () => {
-  return ['MKUTctUetbPYJG2mp0dM093nI1u2']
+  return ['MKUTctUetbPYJG2mp0dM093nI1u2', 'E8sQwDeIK1QCrPy4W8wrGoaoncD3']
 }

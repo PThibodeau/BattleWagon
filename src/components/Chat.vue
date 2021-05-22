@@ -6,6 +6,7 @@
         :name="userName"
         :photo-url="userPhotoURL"
         :sender="userId === user?.uid"
+        :serverId="userId === '-1'"
       >
         {{ text }}
       </Message>
@@ -28,33 +29,15 @@ export default {
   components: { Message },
   setup() {
     const { user, isLogin } = useAuth()
-    const { messages, sendMessage, userLogon, userLogoff} = useChat()
-    let counter = 0;
+    const { messages, sendMessage} = useChat()
 
     const message = ref('')
     const send = () => {
       sendMessage(message.value)
       message.value = ''
     }
-    const sendLogonMessage = () => {
-      userLogon()
-    }
-    const sendLogoffMessage = () => {
-      userLogoff()
-    }
 
-    return { user, isLogin, messages, message, send, counter, sendLogonMessage, sendLogoffMessage }
-  },
-  updated(){
-    if (this.counter === 0){
-      this.counter = 1;
-      //this.sendLogonMessage()
-      // console.log("logon")
-    }
-  },
-  beforeUnmount(){
-    //this.sendLogoffMessage()
-    // console.log("logoff")
+    return { user, isLogin, messages, message, send }
   }
 }
 </script>
