@@ -17,12 +17,12 @@
 <script>
 
 import MapList from '@/components/MapList.vue'
-import Chat from '@/components/Chat.vue'
+// import Chat from '@/components/Chat.vue'
 import { useAuth, getActivatedUsers } from '@/firebase'
 
 export default {
     name: 'MainPage',
-    components: { MapList, Chat },
+    components: { MapList },
     setup() {
         const { user, isLogin } = useAuth()
         const activeUsers = getActivatedUsers()
