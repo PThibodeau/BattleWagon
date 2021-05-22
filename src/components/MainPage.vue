@@ -1,7 +1,7 @@
 <template>
     <div v-if="handleLogon()">
         <MapList/>
-        <Chat/>
+        <!-- <Chat/> -->
     </div>
     <div v-else-if="isLogin" class="splah-screen-message">
         <div>
